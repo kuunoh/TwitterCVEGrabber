@@ -11,6 +11,7 @@
   - Api Key
   - Api Key Secret 
   - Secret Key
+ - Run `pip install requirements.txt ` to install dependencies
 
 ### WIP
 - [ ] Populate home page
