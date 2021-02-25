@@ -93,6 +93,11 @@
                var $time = $("#time");
                var last_retrieve = new Date(data).toLocaleString('en-gb', options);
                $time.html("Last refresh :<br>" + last_retrieve)
+               $time.css({
+                "float": "right",
+                "margin-bottom": "30px",
+                "color": "#a8a8a8"
+            })
            },
        });
 
@@ -101,7 +106,6 @@
 
   </script>
     <p>
-    Each refresh append every hour.
     <div id = "time">
     </div>
     </p>

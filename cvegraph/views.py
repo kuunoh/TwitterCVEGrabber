@@ -23,11 +23,6 @@ def week(request):
     return render(request, 'week.html', context)
 
 
-def about(request):
-    context = {"about_page": "active"}
-    return render(request, 'about.html', context)
-
-
 def cve_chart_today(request):
 
     time = Time.objects.filter(id=1).values_list('last_retrieve_time').get()
