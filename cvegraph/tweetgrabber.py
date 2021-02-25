@@ -1,4 +1,4 @@
-from cvegraph.models import CVE
+from cvegraph.models import CVE, Time
 from django.conf import settings
 import tweepy as tweepy
 from datetime import datetime, timedelta
@@ -45,7 +45,11 @@ def grab_tweet():
     # Filter to get ride of retweets
     query = 'CVE -filter:retweets'
 
-    retrieving_date = datetime.now()
+    if Time.objects.filter(id=1).exists():
+        time_object = Time.objects.get(id=1)
+        time_object.last_retrieve_time = datetime.now()
+        time_object.save()
+
     # Finding each tweet in english to avoid some bad one
     for tweet in tweepy.Cursor(api.search, lang='en', q=query, since=date_since, tweet_mode="extended").items(300):
         pattern = "(?i)(CVE-(1999|2\d{3})-(\d{3,}))"

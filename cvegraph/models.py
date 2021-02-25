@@ -12,3 +12,11 @@ class CVE(models.Model):
 
     def __str__(self):
         return self.cve_id
+
+
+class Time(models.Model):
+    id = models.IntegerField(primary_key=True, default=1)
+    last_retrieve_time = models.DateTimeField(default=None)
+
+    def __str__(self):
+        return str(self.last_retrieve_time)

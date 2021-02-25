@@ -1,6 +1,8 @@
+from datetime import datetime
+
 from django.shortcuts import render
 from django.http import JsonResponse
-from cvegraph.models import CVE
+from cvegraph.models import CVE, Time
 
 
 # Create your views here.
@@ -27,32 +29,20 @@ def about(request):
 
 
 def cve_chart_today(request):
-    labels = []
-    data = []
 
-    # queryset = CVE.objects.values('cve_id', 'today_occurrence_number').filter(today_occurrence_number__gt=1)
-    queryset = CVE.objects.all().filter(today_occurrence_number__gt=0).order_by('-today_occurrence_number')[:10]
-    for entry in queryset:
-        labels.append(entry.cve_id)
-        data.append(entry.today_occurrence_number)
+    time = Time.objects.filter(id=1).values_list('last_retrieve_time').get()
 
-    return JsonResponse(data={
-        'labels': labels,
-        'data': data
-    })
+    return JsonResponse(list(CVE.objects.all().filter(today_occurrence_number__gt=0).order_by('-today_occurrence_number')
+                             .values()), safe=False)
 
 
 def cve_chart_weekly(request):
-    labels = []
-    data = []
 
-    # queryset = CVE.objects.values('cve_id', 'today_occurrence_number').filter(today_occurrence_number__gt=1)
-    queryset = CVE.objects.all().filter(weekly_occurrence_number__gt=0).order_by('-weekly_occurrence_number')[:10]
-    for entry in queryset:
-        labels.append(entry.cve_id)
-        data.append(entry.weekly_occurrence_number)
+    return JsonResponse(list(CVE.objects.all().filter(weekly_occurrence_number__gt=0)
+                             .order_by('-weekly_occurrence_number')
+                             .values()), safe=False)
 
-    return JsonResponse(data={
-        'labels': labels,
-        'data': data
-    })
+
+def get_time(request):
+    time = Time.objects.filter(id=1).values_list('last_retrieve_time').get()
+    return JsonResponse(list(time), safe=False)

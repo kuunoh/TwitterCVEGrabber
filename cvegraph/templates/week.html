@@ -1,10 +1,12 @@
 {% extends "base_generic.html" %}
 {% block content %}
-  <div id="container" style="width: 75%;">
+  <div class="chart-container" >
     <canvas id="cve_weekly" data-url="{% url 'cve_chart_weekly' %}"></canvas>
   </div>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.css">
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.js"></script>
   <script>
     $(function () {
       var $cve_weekly = $("#cve_weekly");
@@ -12,16 +14,32 @@
         url: $cve_weekly.data("url"),
         success: function (data) {
 
-          var ctx = $cve_weekly[0].getContext("2d");
+            const labels = [], occurrences=[];
+            $.each(data, function(i, item) {
+                labels.push(item.cve_id);
+                occurrences.push(item.today_occurrence_number)
+            });
 
+             $('#table_week_cve').DataTable({
+                  "data": data,
+                "columns": [
+                    { "data": "cve_id" },
+                    { "data": "weekly_occurrence_number" },
+                    { "data": "link" },
+                ]
+             });
+
+          var ctx = $cve_weekly[0].getContext("2d");
+            var displayed_labels = labels.slice(0, 10);
+            var displayed_data = occurrences.slice(0,10);
           new Chart(ctx, {
             type: 'bar',
             data: {
-              labels: data.labels,
+              labels: displayed_labels,
               datasets: [{
-                label: 'CVE',
-                backgroundColor: '#6fae3f',
-                data: data.data
+                label: 'CVEs',
+                backgroundColor: '#457b9d',
+                data: displayed_data
               }]
             },
             options: {
@@ -31,7 +49,7 @@
               },
               title: {
                 display: true,
-                text: 'CVE'
+                text: 'List of CVE occurrences this week'
               },
               scales: {
                    yAxes: [{
@@ -44,12 +62,42 @@
           });
 
         }
-      });
+    });
+
+      $.ajax({
+          url: "/cvegraph/time",
+          success: function(data){
+              var options = { weekday: "long",
+                year: "numeric",
+                month: "short",
+                day: "numeric",
+                 hour: "numeric",
+                 minute: "numeric",
+                 second: "numeric",
+                timeZoneName: "short"
+              };
+              var $time = $("#time");
+            var last_retrieve = new Date(data).toLocaleString('en-gb', options);
+            $time.html("Last refresh :<br>" + last_retrieve)
+          },
 
     });
+}
+);
 
   </script>
     <p>
     Each refresh append every hour.
-</p>
+    <div id="time">
+    </div>
+    </p>
+    <table id="table_week_cve" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th>Cve_ID</th>
+                <th>Number of occurrence this week</th>
+                <th>Link</th>
+            </tr>
+        </thead>
+    </table>
 {% endblock %}

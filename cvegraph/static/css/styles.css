@@ -10,3 +10,13 @@
 #about-content > h1{
     margin-bottom: 40px;
 }
+
+.chart-container{
+    text-align: center;
+}
+
+canvas{
+    margin: 0 auto;
+    width: 100%;
+    height: 100%;
+}
