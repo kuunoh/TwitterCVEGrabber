@@ -25,8 +25,15 @@
                 "columns": [
                     { "data": "cve_id" },
                     { "data": "weekly_occurrence_number" },
-                    { "data": "link" },
-                ]
+                    { "data": "link",
+                        fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+                            if(oData.link) {
+                                $(nTd).html("<a href='"+oData.link+"' target='_blank'>"+oData.link+"</a>");
+                            }
+                        }
+                    },
+                ],
+                 "order": [[ 1, "desc" ]]
              });
 
           var ctx = $cve_weekly[0].getContext("2d");
@@ -63,6 +70,7 @@
 
         }
     });
+
 
       $.ajax({
           url: "/cvegraph/time",

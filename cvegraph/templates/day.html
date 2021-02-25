@@ -26,8 +26,15 @@
                 "columns": [
                     { "data": "cve_id" },
                     { "data": "today_occurrence_number" },
-                    { "data": "link" },
-                ]
+                    { "data": "link",
+                        fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+                            if(oData.link) {
+                                $(nTd).html("<a href='"+oData.link+"' target='_blank'>"+oData.link+"</a>");
+                            }
+                        }
+                    },
+                ],
+                "order": [[ 1, "desc" ]]
              });
 
              var options = { weekday: "long",
