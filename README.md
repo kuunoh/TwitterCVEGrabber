@@ -16,5 +16,5 @@
 ### WIP
 - [ ] Populate home page
 - [ ] Add tabs besides graph for listing each CVE
-- [ ] Improve the way to display graph
+- [ x ] Improve the way to display graph
 - [ ] Adding more complex CSS
