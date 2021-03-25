@@ -10,6 +10,14 @@ Finally, we repeat this operation every 6 hours (due to twitter restrictions) us
 
 We have also created an API system where we can retrieve the data stored in the database to populate our tables and charts.
 
+## Screenshots
+
+#### Daily 
+![daily](https://user-images.githubusercontent.com/27071861/112476543-4c404280-8d72-11eb-9cab-5d5fe4ce9266.png)
+
+#### Weekly
+![weekly](https://user-images.githubusercontent.com/27071861/112476596-5c582200-8d72-11eb-9772-f70e82ba8cf3.png)
+
 
 
 ### Requirements 
