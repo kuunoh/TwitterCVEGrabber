@@ -5,7 +5,9 @@
 ## How does it work ?
 
 Using the Tweepy library, it is possible to perform various queries on Twitter. We get a list of tweets, and, using a regular expression, sort them so as to keep only the CVE numbers. These CVE numbers are then stored in a database to count the number of times they appeared that week or day. We also generate a link to the NIST website for information on CVEs.
+
 Finally, we repeat this operation every 6 hours (due to twitter restrictions) using the apscheduler library.
+
 We have also created an API system where we can retrieve the data stored in the database to populate our tables and charts.
 
 
