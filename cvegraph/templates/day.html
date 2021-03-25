@@ -18,7 +18,7 @@
             const labels = [], occurrences=[];
             $.each(data, function(i, item) {
                 labels.push(item.cve_id);
-                occurrences.push(item.weekly_occurrence_number)
+                occurrences.push(item.today_occurrence_number)
             });
 
             $('#table_today_cve').DataTable({

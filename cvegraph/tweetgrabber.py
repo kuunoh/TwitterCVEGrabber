@@ -26,7 +26,7 @@ def authenticate():
         settings.ACCESS_TOKEN_SECRET
     )
 
-    api = tweepy.API(auth, wait_on_rate_limit=True)
+    api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
     return api
 
 
@@ -51,7 +51,7 @@ def grab_tweet():
         time_object.save()
 
     # Finding each tweet in english to avoid some bad one
-    for tweet in tweepy.Cursor(api.search, lang='en', q=query, since=date_since, tweet_mode="extended").items(300):
+    for tweet in tweepy.Cursor(api.search, lang='en', q=query, since=date_since, tweet_mode="extended").items():
         pattern = "(?i)(CVE-(1999|2\d{3})-(\d{3,}))"
         x = re.search(pattern, tweet.full_text)
         print(x)

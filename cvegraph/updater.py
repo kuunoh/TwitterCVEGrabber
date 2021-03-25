@@ -7,5 +7,5 @@ from cvegraph.views import cve_chart_today
 def start():
     scheduler = BackgroundScheduler()
     scheduler.add_job(tweetgrabber.grab_tweet, 'interval', hours=1)
-    # scheduler.add_job(tweetgrabber.grab_tweet, 'interval', minutes=2)
+    # scheduler.add_job(tweetgrabber.grab_tweet, 'interval', minutes=5)
     scheduler.start()
