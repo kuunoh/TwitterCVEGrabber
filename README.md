@@ -14,7 +14,7 @@
  - Run `pip install requirements.txt ` to install dependencies
 
 ### WIP
-- [ ] Populate home page
-- [ ] Add tabs besides graph for listing each CVE
+- [x] Populate home page
+- [x] Add tabs besides graph for listing each CVE
 - [x] Improve the way to display graph
 - [ ] Adding more complex CSS
